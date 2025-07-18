@@ -1,6 +1,6 @@
 ---
 title: "Krishanu Dhar"
-image: headshot.png
+image: 1000002274.png
 toc: false
 about:
   template: trestles

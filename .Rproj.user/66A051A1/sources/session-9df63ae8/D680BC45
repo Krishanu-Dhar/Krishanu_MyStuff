@@ -3,7 +3,7 @@
     "path": "~/GitHub/Krishanu_MyStuff/index.qmd",
     "project_path": "index.qmd",
     "type": "quarto_markdown",
-    "hash": "1567690232",
+    "hash": "1239262851",
     "contents": "",
     "dirty": false,
     "created": 1752856100657.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "2,19",
+        "cursorPosition": "2,17",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1752856253,
+    "lastKnownWriteTime": 1752856503,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1752856253141,
+    "last_content_update": 1752856503395,
     "read_only": false,
     "read_only_alternatives": []
 }
