@@ -8,7 +8,7 @@ website:
       - href: index.qmd
         text: MyIntro
       - href: projects.qmd
-      text: Projects
+        text: Projects
 
 format:
   html:
