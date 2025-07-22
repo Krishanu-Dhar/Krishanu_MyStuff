@@ -7,13 +7,13 @@ about:
   links:
     - icon: github
       text: GitHub
-      href: https://github.com/Krishanu-Dhar
+      url: https://github.com/Krishanu-Dhar
     - icon: mailbox-flag
       text: Email
-      href: krishanu-dhar@ouhsc.edu
+      url: krishanu-dhar@ouhsc.edu
     - icon: linkedin
       text: LinkedIn
-      href: www.linkedin.com/in/krishanu-dhar-4b537221a
+      url: www.linkedin.com/in/krishanu-dhar-4b537221a
 ---
 
 ::: {.column-page}
