@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Krishanu Dhar">
+<meta name="dcterms.date" content="2025-07-22">
 
-<title>Project Title – Krishanu_Quarto_Intro</title>
+<title>Analysis of DNA Replication Tracks – Krishanu_MyStuff</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -38,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ddd961a2510921635943dfbbd19534c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b57fbb5926bcf090df80824c3024a604.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,7 +104,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -79,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Krishanu_Quarto_Intro</span>
+    <span class="navbar-title">Krishanu_MyStuff</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -89,11 +124,13 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../index.html"> <i class="bi bi-house-fill" role="img">
+</i> 
 <span class="menu-text">MyIntro</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../projects.html"> 
+    <a class="nav-link" href="../projects.html"> <i class="bi bi-pen-fill" role="img">
+</i> 
 <span class="menu-text">Projects</span></a>
   </li>  
 </ul>
@@ -107,22 +144,49 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description">Description</a>
+  <ul class="collapse">
+  <li><a href="#about-the-data" id="toc-about-the-data" class="nav-link" data-scroll-target="#about-the-data">About the Data</a></li>
+  </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a>
+  <ul class="collapse">
+  <li><a href="#organizing-and-tidying-our-data" id="toc-organizing-and-tidying-our-data" class="nav-link" data-scroll-target="#organizing-and-tidying-our-data"><u>Organizing and tidying our data</u></a></li>
+  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project Title</h1>
+<h1 class="title">Analysis of DNA Replication Tracks</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Krishanu Dhar </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 22, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -132,9 +196,407 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>About this site</p>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">Description</h2>
+<p>This quarto document summarizes and analyzes <strong>DNA replication track</strong> data outputted from a Snakemake Pipeline [<a href="https://github.com/SansamLab-Pipelines-Genomics/ReplisomeTracer">Link</a>]. Here, I will <em>filter and tidy the data</em>, then <em>plot it</em> out independently, as well as comparitively. Further I will try to <em>predict labeling states</em> within each sample. If the model doesn’t look as robust as I expected, I will <em>use my own algorithm to predict the states</em>.</p>
+<section id="about-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-data">About the Data</h3>
+<p>There are a couple of things that we should know about the data that we are going to use for the upcoming analyses.</p>
+<ul>
+<li><p>First, we have bedfiles, which consist of <em>read IDs and their metadata</em>. These read IDs are unique, because these have DNA replication footprints. These footprints actually look pretty colorful (will see them in just a few moments). To better understand, here is snap of the workflow:</p>
+<p><img src="..\projects/pictures/Workflow_Rep.png" class="img-fluid" style="width:55.6cm"></p>
+<h3 id="loading-the-packages" class="anchored">Loading the packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Working from:"</span>, here<span class="sc">::</span><span class="fu">here</span>(), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Working from: C:/Users/dhark/Documents/GitHub/Krishanu_MyStuff </code></pre>
+</div>
+</div>
+<p>Let’s have a glimpse at one of the bedfiles I mentioned above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>try_bed <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"NT"</span>, <span class="st">"leftForks_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">readr.show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick look</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(try_bed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 195
+Columns: 9
+$ X1 &lt;chr&gt; "chr1", "chr1", "chr1", "chr1", "chr1", "chr1", "chr1", "chr1", "ch…
+$ X2 &lt;dbl&gt; 1325962, 5853908, 11261820, 35847942, 38897717, 39298905, 44646358,…
+$ X3 &lt;dbl&gt; 1332304, 5863452, 11274951, 35858135, 38910415, 39311525, 44655386,…
+$ X4 &lt;chr&gt; "64d3f3d8-4f2f-4c03-ad7d-f3268d7e47ac", "8e3a55a6-a88c-4c4f-b52a-70…
+$ X5 &lt;dbl&gt; 1310499, 5839126, 11252034, 35847937, 38894320, 39298565, 44646339,…
+$ X6 &lt;dbl&gt; 1357925, 5869143, 11326927, 35907478, 38920742, 39320633, 44667509,…
+$ X7 &lt;chr&gt; "rev", "rev", "rev", "fwd", "rev", "fwd", "rev", "fwd", "rev", "fwd…
+$ X8 &lt;dbl&gt; 6306, 9555, 13098, 10012, 12506, 12478, 9022, 3598, 12521, 6140, 67…
+$ X9 &lt;dbl&gt; 0.761731, 0.060901, 0.442901, -3.000000, -3.000000, -3.000000, -3.0…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign proper column names</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(try_bed) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"chrom"</span>, <span class="st">"fork_start"</span>, <span class="st">"fork_end"</span>, <span class="st">"read_id"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"read_start"</span>, <span class="st">"read_end"</span>, <span class="st">"strand"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"fork_length"</span>, <span class="st">"score"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(try_bed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 195
+Columns: 9
+$ chrom       &lt;chr&gt; "chr1", "chr1", "chr1", "chr1", "chr1", "chr1", "chr1", "c…
+$ fork_start  &lt;dbl&gt; 1325962, 5853908, 11261820, 35847942, 38897717, 39298905, …
+$ fork_end    &lt;dbl&gt; 1332304, 5863452, 11274951, 35858135, 38910415, 39311525, …
+$ read_id     &lt;chr&gt; "64d3f3d8-4f2f-4c03-ad7d-f3268d7e47ac", "8e3a55a6-a88c-4c4…
+$ read_start  &lt;dbl&gt; 1310499, 5839126, 11252034, 35847937, 38894320, 39298565, …
+$ read_end    &lt;dbl&gt; 1357925, 5869143, 11326927, 35907478, 38920742, 39320633, …
+$ strand      &lt;chr&gt; "rev", "rev", "rev", "fwd", "rev", "fwd", "rev", "fwd", "r…
+$ fork_length &lt;dbl&gt; 6306, 9555, 13098, 10012, 12506, 12478, 9022, 3598, 12521,…
+$ score       &lt;dbl&gt; 0.761731, 0.060901, 0.442901, -3.000000, -3.000000, -3.000…</code></pre>
+</div>
+</div></li>
+<li><p>Second, we have multiple bedgraph files. Each read ID is associated with two bedgraph files (one for EdU and one for BrdU). Let’s look at a pair of bedgraphs for a read ID.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>brdu_bed <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedgraphs"</span>, <span class="st">"NT"</span>, <span class="st">"BrdU__0b9d33df-6203-4c55-9ac5-c20ce628dde9.bedgraph"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>edu_bed <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedgraphs"</span>, <span class="st">"NT"</span>, <span class="st">"EdU__0b9d33df-6203-4c55-9ac5-c20ce628dde9.bedgraph"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning column names</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(edu_bed) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"chrom"</span>, <span class="st">"start"</span>, <span class="st">"end"</span>, <span class="st">"prob_score"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(brdu_bed) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"chrom"</span>, <span class="st">"start"</span>, <span class="st">"end"</span>, <span class="st">"prob_score"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(brdu_bed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  chrom   start     end prob_score
+  &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+1 chr16 8110549 8110649    0.00896
+2 chr16 8110539 8110639    0.00882
+3 chr16 8110529 8110629    0.00911
+4 chr16 8110519 8110619    0.00947
+5 chr16 8110509 8110609    0.00951
+6 chr16 8110499 8110599    0.00933</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(edu_bed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  chrom   start     end prob_score
+  &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+1 chr16 8110549 8110649      0.908
+2 chr16 8110539 8110639      0.851
+3 chr16 8110529 8110629      0.850
+4 chr16 8110519 8110619      0.828
+5 chr16 8110509 8110609      0.806
+6 chr16 8110499 8110599      0.786</code></pre>
+</div>
+</div></li>
+</ul>
+<p>You might have guessed it from this. These bedgraphs hold information for the probability score of EdU/BrdU (thymidine analogs) across the entire read for every 100 base pairs (bin size).</p>
+</section>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+</section>
+<section id="workflow" class="level2">
+<h2 class="anchored" data-anchor-id="workflow">Workflow</h2>
+<ol type="1">
+<li><p>Organize and tidy the data for better clarity.</p></li>
+<li><p>Plot the data</p></li>
+<li><p>Try predicting the labeling states within each sample, and find out their transition points</p></li>
+</ol>
+<section id="organizing-and-tidying-our-data" class="level3">
+<h3 class="anchored" data-anchor-id="organizing-and-tidying-our-data"><u>Organizing and tidying our data</u></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ===Non-treated Sample (NT)===</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>left_df <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"NT"</span>, <span class="st">"leftForks_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>right_df <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"NT"</span>, <span class="st">"rightForks_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>origin_df <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"NT"</span>, <span class="st">"origins_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>termination_df <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"NT"</span>, <span class="st">"terminations_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Set column names (Origins and Terminations have different structure)</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(left_df) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(right_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"chrom"</span>, <span class="st">"fork_start"</span>, <span class="st">"fork_end"</span>, <span class="st">"read_id"</span>,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"read_start"</span>, <span class="st">"read_end"</span>, <span class="st">"strand"</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"fork_length"</span>, <span class="st">"score"</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(origin_df) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(termination_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"chrom"</span>, <span class="st">"fork_start"</span>, <span class="st">"fork_end"</span>, <span class="st">"read_id"</span>, <span class="st">"read_start"</span>, <span class="st">"read_end"</span>, <span class="st">"strand"</span>)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge left and right forks</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>merged_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(left_df, right_df)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract read IDs</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>merged_ids <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">trimws</span>(<span class="fu">as.character</span>(merged_df<span class="sc">$</span>read_id)))</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>exclude_ids <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">trimws</span>(<span class="fu">as.character</span>(<span class="fu">c</span>(origin_df<span class="sc">$</span>read_id, termination_df<span class="sc">$</span>read_id))))</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out excluded read IDs</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>filtered_ids <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(merged_ids, exclude_ids)</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>filtered_df_NT <span class="ot">&lt;-</span> merged_df <span class="sc">|&gt;</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(read_id <span class="sc">%in%</span> filtered_ids)</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: Exclude reads with score == -3</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>filtered_df_NT <span class="ot">&lt;-</span> filtered_df_NT <span class="sc">|&gt;</span> </span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(score <span class="sc">!=</span> <span class="sc">-</span><span class="fl">3.000000</span>)</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="co"># ===Treated sample (Auxin)===</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>left_df <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"Auxin"</span>, <span class="st">"leftForks_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>right_df <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"Auxin"</span>, <span class="st">"rightForks_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>origin_df <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"Auxin"</span>, <span class="st">"origins_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>termination_df <span class="ot">&lt;-</span> <span class="fu">read_table</span>(</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>, <span class="st">"bedfiles"</span>, <span class="st">"Auxin"</span>, <span class="st">"terminations_DNAscent_forkSense.bed"</span>),</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment =</span> <span class="st">"#"</span>,</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Set column names (Origins and Terminations have different structure)</span></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(left_df) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(right_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>  <span class="st">"chrom"</span>, <span class="st">"fork_start"</span>, <span class="st">"fork_end"</span>, <span class="st">"read_id"</span>,</span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>  <span class="st">"read_start"</span>, <span class="st">"read_end"</span>, <span class="st">"strand"</span>,</span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>  <span class="st">"fork_length"</span>, <span class="st">"score"</span></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(origin_df) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(termination_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"chrom"</span>, <span class="st">"fork_start"</span>, <span class="st">"fork_end"</span>, <span class="st">"read_id"</span>, <span class="st">"read_start"</span>, <span class="st">"read_end"</span>, <span class="st">"strand"</span>)</span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge left and right forks</span></span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>merged_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(left_df, right_df)</span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract read IDs</span></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>merged_ids <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">trimws</span>(<span class="fu">as.character</span>(merged_df<span class="sc">$</span>read_id)))</span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>exclude_ids <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">trimws</span>(<span class="fu">as.character</span>(<span class="fu">c</span>(origin_df<span class="sc">$</span>read_id, termination_df<span class="sc">$</span>read_id))))</span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out excluded read IDs</span></span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>filtered_ids <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(merged_ids, exclude_ids)</span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>filtered_df_Aux <span class="ot">&lt;-</span> merged_df <span class="sc">|&gt;</span></span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(read_id <span class="sc">%in%</span> filtered_ids)</span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: Exclude reads with score == -3</span></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>filtered_df_Aux <span class="ot">&lt;-</span> filtered_df_Aux <span class="sc">|&gt;</span> </span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(score <span class="sc">!=</span> <span class="sc">-</span><span class="fl">3.000000</span>)</span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a>filtered_df_NT <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(filtered_df_NT)</span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a>filtered_df_Aux <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(filtered_df_Aux)</span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="co"># Viewing the filtered dataframes</span></span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(filtered_df_NT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 166
+Columns: 9
+$ chrom       &lt;chr&gt; "chr1", "chr1", "chr1", "chr1", "chr1", "chr1", "chr1", "c…
+$ fork_start  &lt;dbl&gt; 1325962, 5853908, 11261820, 104445678, 169175860, 17758184…
+$ fork_end    &lt;dbl&gt; 1332304, 5863452, 11274951, 104451816, 169189462, 17760261…
+$ read_id     &lt;chr&gt; "64d3f3d8-4f2f-4c03-ad7d-f3268d7e47ac", "8e3a55a6-a88c-4c4…
+$ read_start  &lt;dbl&gt; 1310499, 5839126, 11252034, 104429126, 169154802, 17756058…
+$ read_end    &lt;dbl&gt; 1357925, 5869143, 11326927, 104464577, 169209614, 17761424…
+$ strand      &lt;chr&gt; "rev", "rev", "rev", "fwd", "fwd", "rev", "rev", "rev", "r…
+$ fork_length &lt;dbl&gt; 6306, 9555, 13098, 6140, 13472, 20531, 15511, 14073, 9069,…
+$ score       &lt;dbl&gt; 0.761731, 0.060901, 0.442901, 0.143650, 0.626286, 0.323392…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(filtered_df_Aux)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 145
+Columns: 9
+$ chrom       &lt;chr&gt; "chr1", "chr1", "chr1", "chr10", "chr10", "chr10", "chr11"…
+$ fork_start  &lt;dbl&gt; 42555757, 74913117, 88048670, 5107329, 35278521, 101796909…
+$ fork_end    &lt;dbl&gt; 42567801, 74938602, 88069287, 5127677, 35289612, 101811662…
+$ read_id     &lt;chr&gt; "b12f510a-f17b-40b7-97ab-cafe779352a3", "832eb7fc-dea3-468…
+$ read_start  &lt;dbl&gt; 42523710, 74885160, 88000876, 5072168, 35242164, 101772252…
+$ read_end    &lt;dbl&gt; 42622859, 74961619, 88162060, 5140342, 35308086, 101813531…
+$ strand      &lt;chr&gt; "rev", "fwd", "rev", "fwd", "rev", "rev", "fwd", "rev", "f…
+$ fork_length &lt;dbl&gt; 11948, 25421, 20462, 20119, 10989, 14510, 20322, 10766, 13…
+$ score       &lt;dbl&gt; 0.092489, 0.056514, 0.222898, 0.083192, 0.149709, 0.359784…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving the filtered bedfiles for future use</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(filtered_df_NT, </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>,<span class="st">"bedfiles"</span>, <span class="st">"NT"</span>, <span class="st">"final_filtered.bed"</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(filtered_df_Aux, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data"</span>,<span class="st">"bedfiles"</span>, <span class="st">"Auxin"</span>, <span class="st">"final_filtered.bed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-data">Plotting the Data</h3>
+<p>We are going to now see how the ‘.bedgraph’ files look. I am going to first make an aggregate plot of them (one for each of the samples).</p>
+<p>To start, we will need the help of a few user-defined functions. We will call them helper functions. These functions will have multiple input parameters, and at the same time they will return somethings as they are called..</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>read_bedgraph_tracks <span class="ot">&lt;-</span> <span class="cf">function</span>(directory) {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  filenames <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> directory, <span class="at">pattern =</span> <span class="st">".bedgraph"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  dataframes <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">file.path</span>(directory, filenames), read.table)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(dataframes) <span class="ot">&lt;-</span> filenames</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  basenames <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">".*__"</span>, <span class="st">""</span>, filenames)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  brdu_edu_df_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(basenames, <span class="cf">function</span>(base) {</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    brdu <span class="ot">&lt;-</span> dataframes[[<span class="fu">paste0</span>(<span class="st">"BrdU__"</span>, base)]]</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    edu  <span class="ot">&lt;-</span> dataframes[[<span class="fu">paste0</span>(<span class="st">"EdU__"</span>,  base)]]</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>      brdu[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>],</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">BrdU =</span> brdu[, <span class="dv">4</span>],</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">EdU  =</span> edu[, <span class="dv">4</span>],</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">diff =</span> brdu[, <span class="dv">4</span>] <span class="sc">-</span> edu[, <span class="dv">4</span>],</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">id =</span> base</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"chromosome"</span>, <span class="st">"start"</span>, <span class="st">"end"</span>, <span class="st">"BrdU"</span>, <span class="st">"EdU"</span>, <span class="st">"diff"</span>, <span class="st">"read_ID"</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(df)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(brdu_edu_df_list)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>align_diff_by_minimum <span class="ot">&lt;-</span> <span class="cf">function</span>(df, <span class="at">window_size =</span> <span class="dv">500</span>) {</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>diff_roll <span class="ot">&lt;-</span> zoo<span class="sc">::</span><span class="fu">rollmean</span>(df<span class="sc">$</span>diff, <span class="at">k =</span> window_size, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">align =</span> <span class="st">"center"</span>)</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  min_start <span class="ot">&lt;-</span> df<span class="sc">$</span>start[<span class="fu">which.min</span>(df<span class="sc">$</span>diff_roll)]</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  max_start <span class="ot">&lt;-</span> df<span class="sc">$</span>start[<span class="fu">which.max</span>(df<span class="sc">$</span>diff_roll)]</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (min_start <span class="sc">&gt;</span> max_start) df<span class="sc">$</span>start <span class="ot">&lt;-</span> <span class="fu">rev</span>(df<span class="sc">$</span>start)</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  min_start <span class="ot">&lt;-</span> df<span class="sc">$</span>start[<span class="fu">which.min</span>(df<span class="sc">$</span>diff_roll)]</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>x <span class="ot">&lt;-</span> df<span class="sc">$</span>start <span class="sc">-</span> min_start</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>summarize_combined_tracks <span class="ot">&lt;-</span> <span class="cf">function</span>(combined_df) {</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  combined_df <span class="sc">|&gt;</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(x) <span class="sc">|&gt;</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">median_diff =</span> <span class="fu">median</span>(diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean        =</span> <span class="fu">mean</span>(diff,   <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd          =</span> <span class="fu">sd</span>(diff,     <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">n           =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(diff)),</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">se          =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">ci_lower    =</span> mean <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">ci_upper    =</span> mean <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">.groups     =</span> <span class="st">"drop"</span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>detect_signal_boundaries <span class="ot">&lt;-</span> <span class="cf">function</span>(summary_df) {</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>  roll_medians <span class="ot">&lt;-</span> zoo<span class="sc">::</span><span class="fu">rollmedian</span>(summary_df<span class="sc">$</span>median_diff, <span class="at">k =</span> <span class="dv">151</span>, <span class="at">align =</span> <span class="st">"left"</span>, <span class="at">na.pad =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>  edu_start_idx <span class="ot">&lt;-</span> <span class="fu">which</span>(roll_medians <span class="sc">&lt;=</span> <span class="sc">-</span><span class="fl">0.1</span> <span class="sc">&amp;</span> summary_df<span class="sc">$</span>x <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">20000</span>)</span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>  edu_start     <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">length</span>(edu_start_idx) <span class="sc">&gt;</span> <span class="dv">0</span>) summary_df<span class="sc">$</span>x[<span class="fu">min</span>(edu_start_idx)] <span class="cf">else</span> <span class="cn">NA</span></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>  brdu_start <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(edu_start)) {</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>    idx_range     <span class="ot">&lt;-</span> <span class="fu">which</span>(summary_df<span class="sc">$</span>x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>    above_zero    <span class="ot">&lt;-</span> idx_range[roll_medians[idx_range] <span class="sc">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(above_zero) <span class="sc">&gt;</span> <span class="dv">0</span>) brdu_start <span class="ot">&lt;-</span> summary_df<span class="sc">$</span>x[above_zero[<span class="dv">1</span>]]</span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>  brdu_end <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(brdu_start)) {</span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>    brdu_max_idx <span class="ot">&lt;-</span> <span class="fu">which.max</span>(summary_df<span class="sc">$</span>x)</span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>    later_range  <span class="ot">&lt;-</span> <span class="fu">which</span>(summary_df<span class="sc">$</span>x <span class="sc">&gt;</span> brdu_max_idx)</span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>    below_thresh <span class="ot">&lt;-</span> later_range[roll_medians[later_range] <span class="sc">&lt;=</span> <span class="fl">0.5</span>]</span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(below_thresh) <span class="sc">&gt;</span> <span class="dv">0</span>) brdu_end <span class="ot">&lt;-</span> summary_df<span class="sc">$</span>x[below_thresh[<span class="dv">1</span>]]</span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>  summary_df<span class="sc">$</span>edu_start   <span class="ot">&lt;-</span> edu_start</span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a>  summary_df<span class="sc">$</span>brdu_start  <span class="ot">&lt;-</span> brdu_start</span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>  summary_df<span class="sc">$</span>brdu_end    <span class="ot">&lt;-</span> brdu_end</span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(summary_df)</span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>make_aggregate_plot_df <span class="ot">&lt;-</span> <span class="cf">function</span>(bedgraph_directory, sample_name) {</span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>  replication_tracks <span class="ot">&lt;-</span> <span class="fu">read_bedgraph_tracks</span>(bedgraph_directory)</span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a>  aligned            <span class="ot">&lt;-</span> <span class="fu">lapply</span>(replication_tracks, align_diff_by_minimum)</span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>  aligned_named      <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(aligned), <span class="cf">function</span>(i) {</span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> aligned[[i]]</span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>    df<span class="sc">$</span>id <span class="ot">&lt;-</span> i</span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a>  combined_df <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, aligned_named)</span>
+<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a>  summary_df  <span class="ot">&lt;-</span> <span class="fu">summarize_combined_tracks</span>(combined_df)</span>
+<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>  summary_df  <span class="ot">&lt;-</span> summary_df[summary_df<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">40000</span> <span class="sc">&amp;</span> summary_df<span class="sc">$</span>x <span class="sc">&lt;=</span> <span class="dv">60000</span>, ]</span>
+<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a>  summary_df<span class="sc">$</span>sample_name <span class="ot">&lt;-</span> sample_name</span>
+<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a>  summary_df  <span class="ot">&lt;-</span> <span class="fu">detect_signal_boundaries</span>(summary_df)</span>
+<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(summary_df)</span>
+<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"projects"</span>, <span class="st">"data/bedgraphs"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># List your sample names</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>sample_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"NT"</span>, <span class="st">"Auxin"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load and annotate each sample's data</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>summary_all <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(sample_names, <span class="cf">function</span>(sample_name) {</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">make_aggregate_plot_df</span>(<span class="fu">file.path</span>(data_dir, sample_name), sample_name)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>sample_name <span class="ot">&lt;-</span> <span class="fu">factor</span>(sample_name, <span class="at">levels =</span> sample_names)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Also add the boundaries as columns (repeated per row)</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  boundaries <span class="ot">&lt;-</span> df[<span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"edu_start"</span>, <span class="st">"brdu_start"</span>, <span class="st">"brdu_end"</span>)]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>edu_start <span class="ot">&lt;-</span> boundaries<span class="sc">$</span>edu_start</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>brdu_start <span class="ot">&lt;-</span> boundaries<span class="sc">$</span>brdu_start</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>brdu_end <span class="ot">&lt;-</span> boundaries<span class="sc">$</span>brdu_end</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot with facet wrap</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>summary_all <span class="sc">|&gt;</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> median_diff)) <span class="sc">+</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_smooth(method = "loess", span = 0.2, se = TRUE, color = "lightblue") +</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> edu_start), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> brdu_start), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> brdu_end), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> edu_start, <span class="at">y =</span> <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">round</span>(edu_start)), <span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> brdu_start, <span class="at">y =</span> <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">round</span>(brdu_start)), <span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> brdu_end, <span class="at">y =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">round</span>(brdu_end)), <span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Aggregate BrdU - EdU signal"</span>, <span class="at">x =</span> <span class="st">"Relative Position (bp)"</span>, <span class="at">y =</span> <span class="st">"Median Δ signal (BrdU-EdU)"</span>) <span class="sc">+</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(sample_name <span class="sc">~</span>.) <span class="sc">+</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_title_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now, I want to have the data of each track.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plot_each_track <span class="ot">&lt;-</span> <span class="cf">function</span>(bedgraph_dir, sample_names){</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  paired_tracks</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
