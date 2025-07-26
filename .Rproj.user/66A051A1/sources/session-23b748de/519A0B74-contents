@@ -1,9 +1,12 @@
 ---
 title: "Analysis of DNA Replication Tracks"
-date: 2025.07.26
+date: 2025-07-26
 author: Krishanu Dhar
 editor_options: 
   chunk_output_type: console
+format: 
+  html: default
+page: true
 ---
 
 ## Description
