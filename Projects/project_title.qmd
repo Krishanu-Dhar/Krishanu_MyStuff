@@ -6,6 +6,7 @@ editor_options:
   chunk_output_type: console
 format: 
   html: default
+page: true
 ---
 
 ## Description
