@@ -2,7 +2,8 @@
 title: "Projects"
 listing:
   id: projects-listings
-  contents: projects
+  contents: 
+    - projects
   sort: "date asc"
   type: table
   categories: false
