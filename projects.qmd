@@ -3,7 +3,7 @@ title: "Projects"
 listing:
   id: projects-listings
   contents: 
-    - projects
+    - Projects
   sort: "date asc"
   type: table
   categories: false
