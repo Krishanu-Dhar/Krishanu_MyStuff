@@ -8,6 +8,8 @@ format:
   html: default
 ---
 
+
+
 ## Description
 
 This quarto document summarizes and analyzes **DNA replication track** data outputted from a Snakemake Pipeline \[[Link](https://github.com/SansamLab-Pipelines-Genomics/ReplisomeTracer)\]. Here, I will *filter and tidy the data*, then *plot it* out independently, as well as comparitively. Further I will try to *predict labeling states* within each sample. If the model doesn't look as robust as I expected, I will *use my own algorithm to predict the states and transition points*.
@@ -22,6 +24,8 @@ There are a couple of things that we should know about the data that we are goin
 
     ### Loading the packages
 
+
+
     ```{r}
     #| echo: true
     #| message: false
@@ -33,7 +37,11 @@ There are a couple of things that we should know about the data that we are goin
     cat("Working from:", here::here(), "\n")
     ```
 
+
+
     Let's have a glimpse at one of the bedfiles I mentioned above:
+
+
 
     ```{r}
     #| echo: true
@@ -59,7 +67,11 @@ There are a couple of things that we should know about the data that we are goin
     glimpse(try_bed)
     ```
 
+
+
 -   Second, we have multiple bedgraph files. Each read ID is associated with two bedgraph files (one for EdU and one for BrdU). Let's look at a pair of bedgraphs for a read ID.
+
+
 
     ```{r}
     #| echo: true
@@ -79,6 +91,8 @@ There are a couple of things that we should know about the data that we are goin
     head(edu_bed)
     ```
 
+
+
 You might have guessed it from this. These bedgraphs hold information for the probability score of EdU/BrdU (thymidine analogs) across the entire read for every 100 base pairs (bin size).
 
 ## 
@@ -92,6 +106,8 @@ You might have guessed it from this. These bedgraphs hold information for the pr
 3.  Finding out the transition points of each read and calculating fork speeds for the samples
 
 ### [Organizing and tidying our data]{.underline}
+
+
 
 ```{r}
 #| echo: true
@@ -205,6 +221,8 @@ write_tsv(filtered_df_Aux,
 
 ```
 
+
+
 ### Plotting the Data
 
 We are going to now see how the '.bedgraph' files look. If you open a pair of these bedgraphs in IGV (Integartive Genome Viewer), this is what we see.
@@ -212,6 +230,8 @@ We are going to now see how the '.bedgraph' files look. If you open a pair of th
 ![](/projects/pictures/bedgraph_visual.png){fig-align="center"}
 
 I am going to first make an aggregate plot of them (one for each of the samples). To start, we will need the help of a few user-defined functions. We will call them helper functions. These functions will have multiple input parameters, and at the same time they will return somethings as they are called. For simplicity's sake, I am not showing the functions. I will directly show where I am calling the parent function, where all the helper functions are stored.
+
+
 
 ```{r}
 #| message: false
@@ -380,9 +400,13 @@ summary_all |>
   theme_cowplot()
 ```
 
+
+
 ### Finding the transition points and calculating the DNA replication fork speeds across our samples 
 
 For this, I have to get the data of each track. So, I have to process each read ID from each of the samples.
+
+
 
 ```{r}
 #| message: false
@@ -602,6 +626,8 @@ for (sample in sample_names) {
 }
 ```
 
+
+
 Now, let's see how one of these plots look like. First let us look at the plot if the raw '**diff**' values were plotted against 'x'.
 
 ![](/projects/pictures/0e9f2166-51e4-4bc2-926e-fd9ca976801a_raw.png){fig-align="center" width="548"}
@@ -613,6 +639,8 @@ Really noisy right. Now, let's look at the line_plot of the same read ID when **
 It does look like it is detecting the boundaries and transition points accurately. So, I went forward with the thresholds used here to measure and estimate the fork speeds.
 
 Now, for comparing data of each track for Non-treated vs Auxin-treated.
+
+
 
 ```{r}
 #| echo: true
@@ -640,4 +668,7 @@ ggplot(boundary_data, aes(x = sample, y = fork_speed, fill = sample, )) +
   theme_cowplot()
 ```
 
+
+
 ![](/projects/pictures/thank_you.png){fig-align="center" width="350"}
+

@@ -46,7 +46,6 @@ There are a couple of things that we should know about the data that we are goin
       col_names = FALSE
     )
 
-    options(readr.show_col_types = FALSE)
     # Quick look
     glimpse(try_bed)
 
