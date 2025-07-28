@@ -10,7 +10,7 @@ format:
 
 ## Description
 
-This quarto document summarizes and analyzes **DNA replication track** data outputted from a Snakemake Pipeline \[[Link](https://github.com/SansamLab-Pipelines-Genomics/ReplisomeTracer)\]. Here, I will *filter and tidy the data*, then *plot it* out independently, as well as comparitively. Further I will try to *predict labeling states* within each sample. If the model doesn't look as robust as I expected, I will *use my own algorithm to predict the states*.
+This quarto document summarizes and analyzes **DNA replication track** data outputted from a Snakemake Pipeline \[[Link](https://github.com/SansamLab-Pipelines-Genomics/ReplisomeTracer)\]. Here, I will *filter and tidy the data*, then *plot it* out independently, as well as comparitively. Further I will try to *predict labeling states* within each sample. If the model doesn't look as robust as I expected, I will *use my own algorithm to predict the states and transition points*.
 
 ### About the Data
 
@@ -36,6 +36,7 @@ There are a couple of things that we should know about the data that we are goin
     Let's have a glimpse at one of the bedfiles I mentioned above:
 
     ```{r}
+    #| echo: true
     #| message: false
     #| warning: false
 
@@ -63,6 +64,8 @@ There are a couple of things that we should know about the data that we are goin
 
     ```{r}
     #| echo: true
+    #| message: false
+    #| warning: false
     brdu_bed <- read_tsv(
       here("projects", "data", "bedgraphs", "NT", "BrdU__0b9d33df-6203-4c55-9ac5-c20ce628dde9.bedgraph")
     )
@@ -83,15 +86,19 @@ You might have guessed it from this. These bedgraphs hold information for the pr
 
 ## Workflow
 
-1.  Organize and tidy the data for better clarity.
+1.  Organize and tidy the data for better clarity and future use
 
 2.  Plot the data
 
-3.  Try predicting the labeling states within each sample, and find out their transition points
+3.  Finding out the transition points of each read and calculating fork speeds for the samples
 
 ### [Organizing and tidying our data]{.underline}
 
 ```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
 # ===Non-treated Sample (NT)===
 left_df <- read_table(
   here("projects", "data", "bedfiles", "NT", "leftForks_DNAscent_forkSense.bed"),
@@ -201,11 +208,16 @@ write_tsv(filtered_df_Aux,
 
 ### Plotting the Data
 
-We are going to now see how the '.bedgraph' files look. I am going to first make an aggregate plot of them (one for each of the samples).
+We are going to now see how the '.bedgraph' files look. If you open a pair of these bedgraphs in IGV (Integartive Genome Viewer), this is what we see.
 
-To start, we will need the help of a few user-defined functions. We will call them helper functions. These functions will have multiple input parameters, and at the same time they will return somethings as they are called..
+![](/projects/pictures/bedgraph_visual.png){fig-align="center"}
+
+I am going to first make an aggregate plot of them (one for each of the samples). To start, we will need the help of a few user-defined functions. We will call them helper functions. These functions will have multiple input parameters, and at the same time they will return somethings as they are called. For simplicity's sake, I am not showing the functions. I will directly show where I am calling the parent function, where all the helper functions are stored.
 
 ```{r}
+#| message: false
+#| warning: false
+#| include: false
 
 read_bedgraph_tracks <- function(directory) {
   filenames <- list.files(path = directory, pattern = ".bedgraph")
@@ -329,6 +341,11 @@ summary_df |>
 ```
 
 ```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# Setting the directory where our input data is
 data_dir <- here("projects", "data/bedgraphs")
 
 # List your sample names
@@ -348,7 +365,7 @@ summary_all <- map_dfr(sample_names, function(sample_name) {
   return(df)
 })
 
-# Plot with facet wrap
+# Plot with facet grid
 summary_all |>
   ggplot(aes(x = x, y = median_diff)) +
   geom_line(color = "blue") +
@@ -364,10 +381,264 @@ summary_all |>
   theme_cowplot()
 ```
 
-Now, I want to have the data of each track.
+### Finding the transition points and calculating the DNA replication fork speeds across our samples 
+
+For this, I have to get the data of each track. So, I have to process each read ID from each of the samples.
 
 ```{r}
-plot_each_track <- function(bedgraph_dir, sample_names){
-  paired_tracks
+#| message: false
+#| warning: false
+#| include: false
+
+save_bedgraph_tracks <- function(directory, save_dir = NULL) {
+  filenames <- list.files(path = directory, pattern = "\\.bedgraph$", full.names = TRUE)
+  names_vec <- basename(filenames)
+
+  dataframes <- lapply(filenames, read.table, header = FALSE)
+  names(dataframes) <- names_vec
+
+  basenames <- gsub(".*__", "", names_vec)
+  unique_basenames <- sort(unique(basenames))
+
+  paired_tracks <- list()
+
+  for (base in unique_basenames) {
+    brdu_key <- paste0("BrdU__", base)
+    edu_key  <- paste0("EdU__",  base)
+
+    if (brdu_key %in% names(dataframes) && edu_key %in% names(dataframes)) {
+      brdu <- dataframes[[brdu_key]]
+      edu  <- dataframes[[edu_key]]
+
+      df <- data.frame(
+        chromosome = brdu[[1]],
+        start      = brdu[[2]],
+        end        = brdu[[3]],
+        BrdU       = brdu[[4]],
+        EdU        = edu[[4]],
+        diff       = brdu[[4]] - edu[[4]]
+      )
+
+      read_id <- gsub("\\.bedgraph$", "", base)
+      paired_tracks[[read_id]] <- df
+
+      # Optionally save the df to disk
+      if (!is.null(save_dir)) {
+        if (!dir.exists(save_dir)) dir.create(save_dir, recursive = TRUE)
+        out_path <- file.path(save_dir, paste0(read_id, ".tsv"))
+        write.table(df, file = out_path, sep = "\t", row.names = FALSE, quote = FALSE)
+      }
+    }
+  }
+
+  return(paired_tracks)
+}
+
+detect_individual_boundaries <- function(df) {
+  # Sort
+  df <- df[order(df$x), ]
+  
+  # Step 1: Smooth diff
+  df$smoothed_diff <- zoo::rollmean(df$diff, k = 101, align = "left", fill = NA)
+
+  # Step 2: EdU start detection
+  edu_mask <- with(df, smoothed_diff < -0.1 & x < 0 & x > -10000)
+  edu_idx <- which(edu_mask)
+  edu_start <- if (length(edu_idx) > 0) df$x[min(edu_idx)] else NA
+
+  # Step 3: BrdU start detection
+  brdu_start <- NA
+  if (!is.na(edu_start)) {
+    brdu_candidates <- df[df$x >= edu_start & df$x > 0, ]
+    brdu_above <- brdu_candidates[brdu_candidates$diff > 0, ]
+    if (nrow(brdu_above) > 0) {
+      brdu_start <- brdu_above$x[1]
+    }
+  }
+
+  # Step 4: BrdU end detection
+  brdu_end <- NA
+  if (!is.na(brdu_start)) {
+    df_filtered <- df[!is.na(df$diff) & !is.na(df$BrdU), ]
+
+    df_filtered$BrdU_smooth <- zoo::rollmean(df_filtered$BrdU, k = 201, align = "left", fill = NA)
+    df_filtered$diff_smooth <- zoo::rollmean(df_filtered$diff, k = 201, align = "left", fill = NA)
+    df_filtered$diff_div_brdu_smooth <- with(df_filtered, diff_smooth / BrdU_smooth)
+
+    window_df <- df_filtered[df_filtered$x > brdu_start & df_filtered$x <= brdu_start + 15000, ]
+
+    if (nrow(window_df) > 0) {
+      brdu_peak_idx <- which.max(window_df$BrdU_smooth)
+      brdu_peak_x <- window_df$x[brdu_peak_idx]
+
+      drop_zone <- df_filtered[df_filtered$x > brdu_peak_x, ]
+      drop_zone <- drop_zone[drop_zone$diff_smooth <= 0.75 & drop_zone$diff_div_brdu_smooth <= 0.65, ]
+
+      if (nrow(drop_zone) > 0) {
+        brdu_end <- drop_zone$x[1]
+      }
+    }
+  }
+
+  df$edu_start   <- edu_start
+  df$brdu_start  <- brdu_start
+  df$brdu_end    <- brdu_end
+
+  return(df)
 }
 ```
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+data_dir <- here("projects/data/bedgraphs")
+sample_names <- c("NT", "Auxin")
+
+plot_each_track <- function(bedgraph_dir) {
+  save_dir     <- file.path(bedgraph_dir, "processed_reads")
+  aligned_dir  <- file.path(bedgraph_dir, "aligned")
+  plots_dir    <- file.path(bedgraph_dir, "plots")
+
+  # Create directories if they don't exist
+  dir.create(aligned_dir, recursive = TRUE, showWarnings = FALSE)
+  dir.create(plots_dir, recursive = TRUE, showWarnings = FALSE)
+
+  # Step 1: Save processed reads
+  paired_tracks <- save_bedgraph_tracks(bedgraph_dir, save_dir = save_dir)
+
+  # Step 2: Initialize boundary table
+  boundary_table <- data.frame(
+    read_id     = character(),
+    edu_start   = numeric(),
+    brdu_start  = numeric(),
+    brdu_end    = numeric(),
+    edu_track   = numeric(),
+    brdu_track  = numeric(),
+    full_track  = numeric(),
+    fork_speed  = numeric(),
+    stringsAsFactors = FALSE
+  )
+
+  # Step 3: Read saved TSVs
+  tsv_files <- list.files(save_dir, pattern = "\\.tsv$", full.names = TRUE)
+
+  for (tsv_file in tsv_files) {
+    read_id <- tools::file_path_sans_ext(basename(tsv_file))
+    df <- read.table(tsv_file, header = TRUE, sep = "\t")
+
+    # Step 4: Align and detect boundaries
+    aligned_df <- align_diff_by_minimum(df)
+    
+    # Now check for x validity
+    if (!"x" %in% colnames(aligned_df) || all(is.na(aligned_df$x))) {
+      message("Skipping ", read_id, ": x column missing or all NA after alignment")
+      next
+    }
+    aligned_detected_df <- detect_individual_boundaries(aligned_df)
+
+    # Skip if x or smoothed_diff is entirely NA
+    if (anyNA(aligned_detected_df$x) || all(is.na(aligned_detected_df$smoothed_diff))) {
+      message("Skipping ", read_id, ": invalid or missing smoothed_diff")
+      next
+    }
+
+    # Extract boundary values
+    edu_start_val  <- unique(aligned_detected_df$edu_start)
+    brdu_start_val <- unique(aligned_detected_df$brdu_start)
+    brdu_end_val   <- unique(aligned_detected_df$brdu_end)
+
+    # Skip if any boundary is NA
+    if (anyNA(c(edu_start_val, brdu_start_val, brdu_end_val))) {
+      message("Skipping ", read_id, ": one or more boundaries are NA")
+      next
+    }
+
+    # Step 5: Save aligned TSV
+    aligned_path <- file.path(aligned_dir, paste0(read_id, ".tsv"))
+    write.table(aligned_detected_df, file = aligned_path, sep = "\t", row.names = FALSE, quote = FALSE)
+
+    # Step 6: Save boundary info
+    boundary_table <- rbind(boundary_table, data.frame(
+      read_id     = read_id,
+      edu_start   = edu_start_val,
+      brdu_start  = brdu_start_val,
+      brdu_end    = brdu_end_val,
+      edu_track   = brdu_start_val - edu_start_val,
+      brdu_track  = brdu_end_val - brdu_start_val,
+      full_track  = brdu_end_val - edu_start_val,
+      fork_speed  = (brdu_end_val - edu_start_val) / 20000
+    ))
+
+    # Step 7: Plot
+    p <- ggplot(aligned_detected_df, aes(x = x, y = smoothed_diff)) +
+      geom_line(color = "black") +
+      geom_vline(xintercept = edu_start_val,  color = "purple",    linetype = "dashed") +
+      geom_vline(xintercept = brdu_start_val, color = "darkgreen", linetype = "dashed") +
+      geom_vline(xintercept = brdu_end_val,   color = "darkred",   linetype = "dashed") +
+      annotate("text", x = edu_start_val,  y = max(aligned_detected_df$diff, na.rm = TRUE), label = round(edu_start_val),  color = "purple",    vjust = -0.5, angle = 45) +
+      annotate("text", x = brdu_start_val, y = max(aligned_detected_df$diff, na.rm = TRUE), label = round(brdu_start_val), color = "darkgreen", vjust = -0.5, angle = 45) +
+      annotate("text", x = brdu_end_val,   y = max(aligned_detected_df$diff, na.rm = TRUE), label = round(brdu_end_val),   color = "darkred",   vjust = -0.5, angle = 45) +
+      labs(title = paste("BrdU - EdU for", read_id), x = "x", y = "diff") +
+      theme_cowplot()
+
+    plot_path <- file.path(plots_dir, paste0(read_id, ".png"))
+    ggsave(plot_path, plot = p, width = 6, height = 4)
+  }
+
+  # Step 8: Save summary CSV
+  summary_csv_path <- file.path(plots_dir, "boundary_summary.csv")
+  write.csv(boundary_table, file = summary_csv_path, row.names = FALSE)
+
+  invisible(NULL)
+}
+
+
+
+for (sample in sample_names) {
+  sample_dir <- file.path(data_dir, sample)
+  message("Processing sample: ", sample)
+  plot_each_track(sample_dir)
+  
+}
+```
+
+Now, let's see how one of these plots look like. First let us look at the plot if the raw '**diff**' values were plotted against 'x'.
+
+![](/projects/pictures/0e9f2166-51e4-4bc2-926e-fd9ca976801a_raw.png){fig-align="center" width="548"}
+
+Really noisy right. Now, let's look at the line_plot of the same read ID when **smoothed** using the '**zoo**' package.
+
+![](/projects/pictures/0e9f2166-51e4-4bc2-926e-fd9ca976801a_smoothed.png){fig-align="center" width="548"}
+
+It does look like it is detecting the boundaries and transition points accurately. So, I went forward with the thresholds used here to measure and estimate the fork speeds.
+
+Now, for comparing data of each track for Non-treated vs Auxin-treated.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# Read and combine the boundary summary files
+boundary_data <- map_dfr(sample_names, function(sample) {
+  csv_path <- file.path(data_dir, sample, "plots", "boundary_summary.csv")
+  if (file.exists(csv_path)) {
+    df <- read.csv(csv_path)
+    df$sample <- sample
+    return(df)
+  } else {
+    warning("Missing file: ", csv_path)
+    return(NULL)
+  }
+})
+
+# Plot violin plot with jittered points
+ggplot(boundary_data, aes(x = sample, y = fork_speed, fill = sample, )) +
+  geom_boxplot(outliers = TRUE, outlier.colour = "darkred", alpha = 0.5) +
+  geom_jitter(width = 0.15, size = 1, alpha = 0.7, color = "black") +
+  labs(title = "Fork Speed Distribution", y = "Fork Speed (kb/min)", x = "") +
+  theme_cowplot()
+```
+
+![](/projects/pictures/thank_you.png){fig-align="center" width="350"}
